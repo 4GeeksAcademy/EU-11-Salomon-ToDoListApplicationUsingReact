@@ -1,37 +1,42 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 
-//create your first component
+const Home = () => {
+  const [inputValue, setInputValue] = useState("");
+  const [todos, setTodos] = useState([]);
 
-const AnyComponent = () => {
-    const [inputValue, setInputValue ] = useState("");
-    return (
-        <div className="container">
-            <h1>My To Do List in React</h1>
-            <ul>
-                <li>
-                    <input 
-                        type="text"
-                        onChange{(e) => setInputValue(e.target.value)}
-                        value={inputValue}
-                        placeholder="text1"></input>
-                </li>
-                <li>
-                    <input type="text" placeholder="text2"> </input>
-                </li>
-                <li>
-                    <input type="text" placeholder="text3"> </input>
-                </li>
-                <li>
-                    <input type="text" placeholder="text4"> </input>
-                </li>
-                <li>
-                    <input type="text" placeholder="text5"> </input>
-                </li>
-            </ul>
-        </div>
-    );
+  return (
+    <div className="container">
+      <h1>My To Do List With React</h1>
+      <ul>
+        <li>
+          <input
+            type="text"
+            onChange={(e) => setInputValue(e.target.value)}
+            value={inputValue}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                setTodos(todos.concat([inputValue]));
+                setInputValue("");
+              }
+            }}
+            placeholder="What do you need to do?"
+          />
+        </li>
+        {todos.map((item, index) => (
+          <li key={index} style={{ display: "flex", alignItems: "center" }}>
+            <span style={{ flexGrow: 1 }}>{item}</span>
+            <i
+              className="fas fa-times"
+              onClick={() =>
+                setTodos(todos.filter((_, currentIndex) => index !== currentIndex))
+              }
+            ></i>
+          </li>
+        ))}
+      </ul>
+      <div>{todos.length} tasks</div>
+    </div>
+  );
 };
 
-
-export default AnyComponent;
+export default Home;
