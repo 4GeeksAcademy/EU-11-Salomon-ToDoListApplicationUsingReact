@@ -19,7 +19,7 @@ const Home = () => {
                 setInputValue("");
               }
             }}
-            placeholder="What do you need to do?"
+            placeholder="No tasks, add a task"
           />
         </li>
         {todos.map((item, index) => (
